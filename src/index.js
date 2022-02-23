@@ -1,1 +1,3 @@
-console.log("Ok");
+import { generateHeader } from "./View/TemplateGenerator";
+
+generateHeader();

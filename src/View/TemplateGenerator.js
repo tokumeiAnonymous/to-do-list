@@ -1,5 +1,6 @@
-import toDoIcon from "./Assets/list-check-solid.svg";
-import searchIcon from "./Assets/magnifying-glass-solid.svg";
+import '../style.css';
+import toDoIcon from "../Assets/list-check-solid.svg";
+import searchIcon from "../Assets/magnifying-glass-solid.svg";
 
 export function generateHeader() {
 
@@ -8,7 +9,9 @@ export function generateHeader() {
     header.classList.add('header');
     body.appendChild(header);
 
+
     const logo = new Image();
+    logo.classList.add('icon');
     logo.src = toDoIcon;
     logo.alt = "To do list";
     header.appendChild(logo);
@@ -19,7 +22,7 @@ export function generateHeader() {
 
 function generateSearchBar() {
 
-    const searchBar = document.querySelector('div');
+    const searchBar = document.createElement('div');
     searchBar.classList.add('search');
     const searchForm = document.createElement('form');
     searchForm.classList.add('search-form');
@@ -31,11 +34,15 @@ function generateSearchBar() {
     input.name = "search";
     searchForm.appendChild(input);
 
+    const searchButton = document.createElement('button');
+    searchButton.classList.add('search-button');
     const searchLogo = new Image();
+    searchLogo.classList.add('icon');
     searchLogo.src = searchIcon;
     searchLogo.alt = "Search";
+    searchButton.appendChild(searchLogo);
 
-    searchForm.appendChild(searchLogo);
+    searchForm.appendChild(searchButton);
 
     return searchBar;
 }

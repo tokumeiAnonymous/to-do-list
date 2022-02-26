@@ -1,3 +1,6 @@
-import { generateHeader } from "./View/TemplateGenerator";
+import { generateFooter, generateHeader, generateSideBar, generateTodoTable } from "./View/TemplateGenerator";
 
 generateHeader();
+generateSideBar();
+generateTodoTable();
+generateFooter();

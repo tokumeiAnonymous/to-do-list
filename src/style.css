@@ -1,39 +1,80 @@
 * {
     box-sizing: border-box;
+    border: 1px solid black;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+:root {
+    --main-red: #db4c3f;
+    --second-red: #d86257;
 }
 
+/* Header */
 .header {
-    float: right;
     display: flex;
+    align-items: center;
+    height: 3rem;
+    background-color: var(--main-red);
 }
 
-.header input[type=text] {
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid gray;
-    width: 80%;
+.header .left {
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
 }
 
-.header button {
-    float: right;
-    padding: 0.25rem 0.5rem;
-    margin-top: 0.5rem;
-    margin-right: 1rem;
-    background: #ddd;
-    font-size: 1rem;
-    cursor: pointer;
+.header .left .logo {
+    height: 2rem;
 }
 
-.header button:hover {
-    background: #ccc;
+.header .right {
+    display: flex;
+    align-items: center;
+    margin-right: 3rem;
 }
 
-.icon {
-    width: 1rem;
+.search {
+    height: 2rem;
+    background-color: var(--second-red);
+}
+
+.search:hover, .search:focus {
+    background-color: white;
+}
+
+.search-button, .user-button {
+    height: 2rem;
+    width: 2rem;
+}
+
+/* Projects */
+.content {
+    position: relative;
+}
+
+.content ul {
+    list-style: none;
+}
+
+.content ul li {
+    margin: 0.5rem;
+    margin-left: 0;
+}
+
+.project-holder {
+    position: absolute;
+    width: min(max-content, 200px);
+}
+
+.todo-holder {
+    margin-left: 200px;
+    height: 80vh;
+}
+
+footer {
+    text-align: center;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
 }

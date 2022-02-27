@@ -16,4 +16,8 @@ export default class Project {
     deleteToDo(indexNum) {
         this.toDo.splice(indexNum, 1);
     }
+
+    getName() {
+        return this.name;
+    }
 }

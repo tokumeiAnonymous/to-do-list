@@ -12,8 +12,8 @@ export function generateHeader() {
 
 
     const left = document.createElement('div');
-    left.classList.add('left');
-    left.classList.add('control');
+    left.classList.add('left', 'control');
+    // left.classList.add('control');
     header.appendChild(left);
 
     const logo = new Image();
@@ -28,8 +28,8 @@ export function generateHeader() {
 
 
     const right = document.createElement('div');
-    right.classList.add('right');
-    right.classList.add('control');
+    right.classList.add('right', 'control');
+    // right.classList.add('control');
     header.appendChild(right);
 
     const search = document.createElement('input');
@@ -56,9 +56,7 @@ export function generateHeader() {
 
 }
 
-
-
-export function generateSideBar() {
+export function generateSideBar(projectArray) {
 
     generateContent();
 
@@ -70,12 +68,40 @@ export function generateSideBar() {
 
     // must get the project list from project array
     // code goes here
+    for (let i = 0; i < projectArray.length; i++){
+        const project = document.createElement('li');
+        project.textContent = `${projectArray[i].getName()}`;
+        projectList.appendChild(project);
+    }
 
+    // @ param is the datas
+    /*
+    const addProjectForm = createForm("Name");
+    */
 
+    // add form 
+    const addProject = document.createElement('form');
+    addProject.classList.add('add-project', 'form');
+    projectList.appendChild(addProject);
 
+    const projectNameLabel = document.createElement('label');
+    projectNameLabel.for = "project-name";
+    projectNameLabel.textContent = "Name";
+    addProject.appendChild(projectNameLabel);
+
+    const projectName = document.createElement('input');
+    projectName.type = "text";
+    projectName.required = true;
+    projectName.id = "project-name";
+    addProject.appendChild(projectName);
+
+    const addProjectButton = document.createElement('button');
+    addProjectButton.textContent = "Add Project";
+    addProject.appendChild(addProjectButton);
+    
 }
 
-export function generateTodoTable() {
+export function generateTodoTable(projectName) {
 
     const content = document.querySelector('.content');
 
@@ -83,11 +109,11 @@ export function generateTodoTable() {
     toDoList.classList.add('todo-holder');
     content.appendChild(toDoList);
 
-    const projectName = document.createElement('h1');
-    projectName.classList.add('project-name');
+    const projectNameTitle = document.createElement('h1');
+    projectNameTitle.classList.add('project-name');
     // gets the project name and display it
-    projectName.textContent = "Temp Project";
-    toDoList.appendChild(projectName);
+    projectNameTitle.textContent = `${projectName.getName()}`;
+    toDoList.appendChild(projectNameTitle);
 
     const toDoTable = document.createElement('table');
     toDoTable.classList.add('to-do');
@@ -96,13 +122,37 @@ export function generateTodoTable() {
     const thead = document.createElement('thead');
     toDoTable.appendChild(thead);
 
-    toDoTable.appendChild(createTD("Name"));
-    toDoTable.appendChild(createTD("Priority"));
-    toDoTable.appendChild(createTD("Date Created"));
-    toDoTable.appendChild(createTD("Due Date"));
+    thead.appendChild(createTD("Name"));
+    thead.appendChild(createTD("Priority"));
+    thead.appendChild(createTD("Date Created"));
+    thead.appendChild(createTD("Due Date"));
 
     // gets the todo data
     // use for loop
+    // add checkbox before every line
+
+    for (let i = 0; i < projectName.getToDo().length; i++){
+        const row = document.createElement('tr');
+        // Get all the todo properties
+        const name = projectName.getToDo()[i].getName();
+        const priority = projectName.getToDo()[i].getPriority();
+        const createDate = projectName.getToDo()[i].getCreateDate();
+        const dueDate = projectName.getToDo()[i].getDueDate();
+        const isFinish = projectName.getToDo()[i].isFinish();
+
+        row.appendChild(createTD(name));
+        row.appendChild(createTD(priority));
+        row.appendChild(createTD(createDate));
+        row.appendChild(createTD(dueDate));
+        // row.appendChild(createTD(isFinish));
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.value = isFinish;
+        row.appendChild(checkbox);
+
+        toDoTable.appendChild(row);
+    }
 }
 
 export function generateFooter() {
@@ -146,3 +196,11 @@ function createLinks(linkName) {
 
     return link;
 }
+
+/*
+function addDataToTable(data) {
+    const td = document.createElement('td');
+    td.textContent = data;
+    return td;
+}
+*/

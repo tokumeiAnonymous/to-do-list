@@ -1,8 +1,12 @@
+const { format } = require('date-fns');
 
 export default class ToDo {
     constructor (name, priority, dueDate) {
         this.name = name;
+        this.priority  = priority;
+        const today = format(new Date(), 'dd.MM.yyyy');
         this.dueDate = dueDate;
+        this.createDate = today;
         this.finish = false;
     }
 
@@ -14,21 +18,24 @@ export default class ToDo {
         return this.name;
     }
 
+    setPriority(priority) {
+        this.priority = priority;
+    }
+
+    getPriority() {
+        return this.priority;
+    }
+
+    getCreateDate() {
+        return this.createDate;
+    }
+
     setDueDate(dueDate) {
         this.dueDate = dueDate;
     }
 
     getDueDate() {
         return this.dueDate;
-    }
-
-    setCreateDate() {
-        // gets current date
-        this.createDate = false;
-    }
-
-    getCreateDate() {
-        return this.createDate;
     }
 
     setFinish() {

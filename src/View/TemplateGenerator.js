@@ -2,6 +2,7 @@ import '../style.css';
 import toDoIconAddress from "../Assets/list-check-solid.svg";
 import searchIconAddress from "../Assets/magnifying-glass-solid.svg";
 import userIconAddress from "../Assets/user-solid.svg";
+import plusIconAddress from "../Assets/plus-box.svg";
 
 export function generateHeader() {
 
@@ -70,14 +71,11 @@ export function generateSideBar(projectArray) {
     // code goes here
     for (let i = 0; i < projectArray.length; i++){
         const project = document.createElement('li');
+        project.classList.add('project');
         project.textContent = `${projectArray[i].getName()}`;
+        project.setAttribute("data-index", i);
         projectList.appendChild(project);
     }
-
-    // @ param is the datas
-    /*
-    const addProjectForm = createForm("Name");
-    */
 
     // add form 
     const addProject = document.createElement('form');
@@ -98,6 +96,11 @@ export function generateSideBar(projectArray) {
     const addProjectButton = document.createElement('button');
     addProjectButton.textContent = "Add Project";
     addProject.appendChild(addProjectButton);
+
+    const plusButton = new Image();
+    plusButton.src = plusIconAddress;
+    plusButton.classList.add('add-project-button');
+    projectList.appendChild(plusButton);
     
 }
 
@@ -116,7 +119,7 @@ export function generateTodoTable(projectName) {
     toDoList.appendChild(projectNameTitle);
 
     const toDoTable = document.createElement('table');
-    toDoTable.classList.add('to-do');
+    toDoTable.classList.add('to-do-table');
     toDoList.appendChild(toDoTable);
 
     const thead = document.createElement('thead');
@@ -133,6 +136,7 @@ export function generateTodoTable(projectName) {
 
     for (let i = 0; i < projectName.getToDo().length; i++){
         const row = document.createElement('tr');
+        row.classList.add('to-do');
         // Get all the todo properties
         const name = projectName.getToDo()[i].getName();
         const priority = projectName.getToDo()[i].getPriority();
@@ -153,6 +157,46 @@ export function generateTodoTable(projectName) {
 
         toDoTable.appendChild(row);
     }
+
+    const plusButton = new Image();
+    plusButton.src = plusIconAddress;
+    plusButton.classList.add('add-todo-button');
+    toDoList.appendChild(plusButton);
+
+    const addToDoForm = document.createElement('form');
+    addToDoForm.classList.add('add-todo', 'form');
+    content.appendChild(addToDoForm);
+
+    const todoNameLabel = document.createElement('label');
+    todoNameLabel.for = "todo-name";
+    todoNameLabel.textContent = "Name";
+    addToDoForm.appendChild(todoNameLabel);
+
+    const nameInput = document.createElement('input');
+    nameInput.type = "text";
+    nameInput.id = "todo-name"
+    addToDoForm.appendChild(nameInput);
+
+    const priorityLabel = document.createElement('label');
+    priorityLabel.for = "priority";
+    priorityLabel.textContent = "Priority";
+    addToDoForm.appendChild(priorityLabel);
+
+    const priorityInput = document.createElement('input');
+    priorityInput.type = "text";
+    priorityInput.id = "priority"
+    addToDoForm.appendChild(priorityInput);
+
+    const dueDateLabel = document.createElement('label');
+    dueDateLabel.for = "due-date";
+    dueDateLabel.textContent = "Due Date";
+    addToDoForm.appendChild(dueDateLabel);
+
+    const dueDate = document.createElement('input');
+    dueDate.type = "date";
+    dueDate.id = "due-date";
+    addToDoForm.appendChild(dueDate);
+
 }
 
 export function generateFooter() {
@@ -197,10 +241,13 @@ function createLinks(linkName) {
     return link;
 }
 
-/*
-function addDataToTable(data) {
-    const td = document.createElement('td');
-    td.textContent = data;
-    return td;
+export function clearTable() {
+    const toDoList = document.querySelector('.todo-holder');
+    toDoList.remove();
 }
-*/
+
+export function clearFooter() {
+    const footer = document.querySelector('footer');
+    footer.remove();
+}
+

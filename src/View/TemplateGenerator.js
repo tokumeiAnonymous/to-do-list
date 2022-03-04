@@ -57,11 +57,17 @@ export function generateHeader() {
 
 }
 
-export function generateSideBar(projectArray) {
+export function generateSideBar() {
 
     generateContent();
 
     const content = document.querySelector('.content');
+
+    /*
+    const sideBar = document.createElement('div');
+    sideBar.classList.add('side-bar');
+    content.appendChild(sideBar);
+    */
 
     const projectList = document.createElement('ul');
     projectList.classList.add('project-holder');
@@ -69,18 +75,24 @@ export function generateSideBar(projectArray) {
 
     // must get the project list from project array
     // code goes here
-    for (let i = 0; i < projectArray.length; i++){
+
+    for (let i = 0; i < localStorage.length; i++){
         const project = document.createElement('li');
         project.classList.add('project');
-        project.textContent = `${projectArray[i].getName()}`;
+
+        const temp = JSON.parse(localStorage.getItem(localStorage.key(i)));
+
+        console.log(temp);
+
+        project.textContent = temp.name;
         project.setAttribute("data-index", i);
         projectList.appendChild(project);
     }
 
     // add form 
-    const addProject = document.createElement('form');
+    const addProject = document.createElement('section');
     addProject.classList.add('add-project', 'form');
-    projectList.appendChild(addProject);
+    content.appendChild(addProject);
 
     const projectNameLabel = document.createElement('label');
     projectNameLabel.for = "project-name";
@@ -95,7 +107,13 @@ export function generateSideBar(projectArray) {
 
     const addProjectButton = document.createElement('button');
     addProjectButton.textContent = "Add Project";
+    addProjectButton.classList.add('project-add');
     addProject.appendChild(addProjectButton);
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = "Cancel";
+    cancelButton.classList.add('project-cancel');
+    addProject.appendChild(cancelButton);
 
     const plusButton = new Image();
     plusButton.src = plusIconAddress;
@@ -153,17 +171,25 @@ export function generateTodoTable(projectName) {
         const checkbox = document.createElement('input');
         checkbox.type = "checkbox";
         checkbox.value = isFinish;
+        checkbox.classList.add('checkbox');
         row.appendChild(checkbox);
 
         toDoTable.appendChild(row);
     }
 
+}
+
+export function addTableForm() {
+
+    // const toDoList = document.querySelector('.todo-holder');
+    const content = document.querySelector('.content');
+
     const plusButton = new Image();
     plusButton.src = plusIconAddress;
     plusButton.classList.add('add-todo-button');
-    toDoList.appendChild(plusButton);
+    content.appendChild(plusButton);
 
-    const addToDoForm = document.createElement('form');
+    const addToDoForm = document.createElement('section');
     addToDoForm.classList.add('add-todo', 'form');
     content.appendChild(addToDoForm);
 
@@ -174,7 +200,8 @@ export function generateTodoTable(projectName) {
 
     const nameInput = document.createElement('input');
     nameInput.type = "text";
-    nameInput.id = "todo-name"
+    nameInput.id = "todo-name";
+    nameInput.required = true;
     addToDoForm.appendChild(nameInput);
 
     const priorityLabel = document.createElement('label');
@@ -184,7 +211,8 @@ export function generateTodoTable(projectName) {
 
     const priorityInput = document.createElement('input');
     priorityInput.type = "text";
-    priorityInput.id = "priority"
+    priorityInput.id = "priority";
+    priorityInput.required = true;
     addToDoForm.appendChild(priorityInput);
 
     const dueDateLabel = document.createElement('label');
@@ -195,9 +223,23 @@ export function generateTodoTable(projectName) {
     const dueDate = document.createElement('input');
     dueDate.type = "date";
     dueDate.id = "due-date";
+    dueDate.required = true;
     addToDoForm.appendChild(dueDate);
 
+    const addToDoButton = document.createElement('button');
+    addToDoButton.textContent = "Add To do";
+    addToDoButton.classList.add('todo-add');
+    addToDoForm.appendChild(addToDoButton);
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = "Cancel";
+    cancelButton.classList.add('todo-cancel');
+    addToDoForm.appendChild(cancelButton);
+
+
 }
+
+
 
 export function generateFooter() {
     const content = document.querySelector('.content');
@@ -244,10 +286,13 @@ function createLinks(linkName) {
 export function clearTable() {
     const toDoList = document.querySelector('.todo-holder');
     toDoList.remove();
+    /*
+    const toDoForm = document.querySelector('.add-todo');
+    toDoForm.remove();
+    */
 }
 
 export function clearFooter() {
     const footer = document.querySelector('footer');
     footer.remove();
 }
-

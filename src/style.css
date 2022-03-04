@@ -83,4 +83,10 @@ footer {
 
 .form {
     display: none;
-} 
+}
+
+.add-todo, .add-project {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+}

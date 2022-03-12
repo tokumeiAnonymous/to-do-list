@@ -1,23 +1,13 @@
 
-export default class Project {
-    constructor(name){
-        this.name = name;
-        this.toDo = [];
+// used arrow function because you can't store methods in localStorage
+ export const createProject = (inName, inTodo) => {
+    let name = inName;
+    let todo = inTodo;
+    
+    // undefined is falsy
+    if (!todo) {
+        todo = [];
     }
 
-    addToDo(toDoName) {
-        this.toDo.push(toDoName);
-    }
-
-    getToDo() {
-        return this.toDo;
-    }
-
-    deleteToDo(indexNum) {
-        this.toDo.splice(indexNum, 1);
-    }
-
-    getName() {
-        return this.name;
-    }
+    return {name, todo};
 }

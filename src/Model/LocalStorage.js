@@ -1,12 +1,16 @@
+import { createProject } from './Project';
 
-export function saveProject(project) {
+function saveProject(project) {
 
-    localStorage.setItem(project.getName(), JSON.stringify(project));
+    localStorage.setItem(project.name, JSON.stringify(project));
 }
 
-export function saveTodo(project, todo) {
+export function addTodo(project, todo) {
+    const tempProject = createProject(project, todo);
+    saveProject(tempProject);
+}
 
-    const tempProject = JSON.parse(localStorage.getItem(project.getName()));
-    tempProject.addToDo(todo);
-    localStorage.setItem(tempProject.getName(), JSON.stringify(tempProject));
+export function addProject(projectName) {
+    const project = createProject(projectName);
+    saveProject(project);
 }

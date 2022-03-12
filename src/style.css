@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    border: 1px solid black;
+    margin: 0;
 }
 
 :root {
@@ -14,12 +14,14 @@
     align-items: center;
     height: 3rem;
     background-color: var(--main-red);
+    justify-content: space-between;
 }
 
 .header .left {
     display: flex;
     align-items: center;
     margin-left: 3rem;
+    width: max-content;
 }
 
 .header .left .logo {
@@ -30,6 +32,8 @@
     display: flex;
     align-items: center;
     margin-right: 3rem;
+    justify-content: flex-end;
+    width: max-content;
 }
 
 .search {
@@ -86,7 +90,46 @@ footer {
 }
 
 .add-todo, .add-project {
-    position: absolute;
-    top: 40%;
-    left: 20%;
+
+    margin: 0 auto 0 auto;
 }
+
+.cancel {
+    background-color: rgba(252, 80, 80, 0.5);
+}
+
+.cancel:hover {
+    background-color: rgb(250, 60, 60);
+}
+
+/* Todo table*/
+
+.low {
+    background-color: rgba(0, 128, 0, 0.7);
+}
+
+.low:hover {
+    background-color: rgba(0, 128, 0, 1);
+}
+
+.medium {
+    background-color: rgba(255, 255, 0, 0.7);
+}
+
+.medium:hover {
+    background-color: rgba(255, 255, 0, 1);
+}
+
+.high {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.high:hover {
+    background-color: rgba(255, 0, 0, 1);
+}
+
+/*
+.low:hover, .medium:hover, .high:hover {
+    background-color: white;
+}
+*/

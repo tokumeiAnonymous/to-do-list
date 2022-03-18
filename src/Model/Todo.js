@@ -5,7 +5,7 @@ export const createTodo = (inName, inPriority, inDueDate) => {
 
     let name = inName;
     let priority = inPriority;
-    let createDate = format(new Date(), 'dd.MM.yyyy');
+    let createDate = format(new Date(), 'dd/ MM/ yyyy');
     let dueDate = inDueDate;
     
     

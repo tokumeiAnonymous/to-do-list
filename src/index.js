@@ -1,7 +1,13 @@
-import { setInitialProject } from './InitialState';
+import { setTestProject } from './InitialState';
+import { getTodayAndDue } from './InitialState';
 import { addTableForm, generateSectionHolder, generateFooter, generateHeader, generateSideBar, generateTodoTable } from './View/TemplateGenerator';
 
-setInitialProject();
+// setTestProject();
+
+const { todayProject, dueProject } = getTodayAndDue();
+
+localStorage.setItem('Today', JSON.stringify(todayProject));
+localStorage.setItem('Due', JSON.stringify(dueProject));
 
 generateHeader();
 

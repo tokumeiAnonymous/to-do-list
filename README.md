@@ -9,3 +9,5 @@
 ## Future Implementation
   The things you do in Today and Due tasks should also reflect in the projects they came from.  
   Example: deleting and marking it finish.
+  
+  Prevent entry with same names.

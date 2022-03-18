@@ -250,15 +250,32 @@ export function addTableForm() {
   addTodoForm.appendChild(nameInput);
 
   const priorityLabel = document.createElement("label");
-  priorityLabel.for = "priority";
+  priorityLabel.for = "priority-select";
   priorityLabel.textContent = "Priority";
   addTodoForm.appendChild(priorityLabel);
 
-  // change this to select
-  const priorityInput = document.createElement("input");
-  priorityInput.type = "text";
-  priorityInput.id = "priority";
+  const priorityInput = document.createElement("select");
+  priorityInput.name = "priority";
+  priorityInput.value = "Low";
+  priorityInput.id = "priority-select";
+  priorityInput.textContent = priorityInput.value;
   priorityInput.required = true;
+
+  const optionLow = document.createElement('option');
+  optionLow.value = 'Low';
+  optionLow.textContent = optionLow.value;
+  priorityInput.appendChild(optionLow);
+
+  const optionMedium = document.createElement('option');
+  optionMedium.value = 'Medium';
+  optionMedium.textContent = optionMedium.value;
+  priorityInput.appendChild(optionMedium);
+
+  const optionHigh = document.createElement('option');
+  optionHigh.value = 'High';
+  optionHigh.textContent = optionHigh.value;
+  priorityInput.appendChild(optionHigh);
+
   addTodoForm.appendChild(priorityInput);
 
   const dueDateLabel = document.createElement("label");

@@ -79,6 +79,10 @@ export function generateSectionHolder() {
   const todoWrapper = document.createElement("div");
   todoWrapper.classList.add("todo-wrapper");
   todoHolder.appendChild(todoWrapper);
+
+  const projectTitle = document.createElement('h1');
+  projectTitle.classList.add('project-title');
+  todoWrapper.appendChild(projectTitle);
 }
 
 export function generateSideBar() {
@@ -169,10 +173,8 @@ export function generateSideBar() {
 export function generateTodoTable(projectName) {
   const todoWrapper = document.querySelector(".todo-wrapper");
 
-  const projectTitle = document.createElement("h1");
-  projectTitle.classList.add("project-title");
+  const projectTitle = document.querySelector(".project-title");
   projectTitle.textContent = projectName;
-  todoWrapper.appendChild(projectTitle);
 
   const todoTable = document.createElement("table");
   todoTable.classList.add("todo-table");
@@ -294,7 +296,6 @@ export function addTableForm() {
   addTodoButton.classList.add("todo-add");
   addTodoButton.addEventListener("click", () => {
     if (!nameInput.reportValidity()) return;
-    else if (!priorityInput.reportValidity()) return;
 
     const newTodo = createTodo(
       nameInput.value,
@@ -309,8 +310,8 @@ export function addTableForm() {
     todoArray.push(newTodo);
     addTodo(projectDisplayedName, todoArray);
     clearTable();
-    clearTodoForm();
     generateTodoTable(projectDisplayedName);
+    clearTodoForm();
 
     addTodoForm.classList.toggle("form");
   });
@@ -354,8 +355,8 @@ export function generateFooter() {
 }
 
 function clearTable() {
-  const todoWrapper = document.querySelector(".todo-wrapper");
-  todoWrapper.innerHTML = "";
+  const todoTable = document.querySelector(".todo-table");
+  todoTable.remove();
 }
 
 function createTD(tdName) {
@@ -391,10 +392,6 @@ function clearProjectForm() {
 function clearTodoForm() {
   const todoInput = document.querySelector("#todo-name");
   todoInput.value = "";
-
-  // change this to select
-  const priorityInput = document.querySelector("#priority");
-  priorityInput.value = "";
 
   const dueDateInput = document.querySelector("#due-date");
   dueDateInput.value = "";

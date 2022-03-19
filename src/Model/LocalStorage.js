@@ -25,8 +25,6 @@ export function deleteTodo(todoName, projectName) {
     // traversed the array here because it contains object not just string. So can't use indexOf
     const index = getIndex(tempProject, todoName);
 
-    console.log(index);
-
     if (index != -1) {
         tempProject.todo.splice(index, 1);
     }

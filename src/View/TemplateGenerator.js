@@ -308,12 +308,7 @@ export function addTableForm() {
   const dueDate = document.createElement("input");
   dueDate.type = "date";
   dueDate.id = "due-date";
-  
-  // to avoid formatting empty string
-  if (dueDate.value) {
-    dueDate.value = format(new Date(dueDate.value), 'dd/ MM/ yyyy');
-  }
-  
+
   addTodoForm.appendChild(dueDate);
 
   const addTodoButton = document.createElement("button");
@@ -322,10 +317,15 @@ export function addTableForm() {
   addTodoButton.classList.add("todo-add");
   addTodoButton.addEventListener("click", () => {
     if (!nameInput.reportValidity()) return;
+    // to avoid formatting empty string
+    let dueDateFormatted = "";
+    if (dueDate.value) {
+      dueDateFormatted = format(new Date(dueDate.value), 'dd/ MM/ yyyy');
+    }
     const newTodo = createTodo(
       nameInput.value,
       priorityInput.value,
-      dueDate.value
+      dueDateFormatted
     );
     const projectDisplayedName =
       document.querySelector(".project-title").textContent;

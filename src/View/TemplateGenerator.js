@@ -7,6 +7,7 @@ import deleteIconAddress from "../Assets/trash-can-solid.svg";
 import { addProject, addTodo, deleteProject, deleteTodo } from "../Model/LocalStorage";
 import { createTodo } from "../Model/Todo";
 import { getTodayAndDue } from "../InitialState";
+import { format } from "date-fns";
 
 export function generateHeader() {
   const body = document.querySelector("body");
@@ -307,6 +308,12 @@ export function addTableForm() {
   const dueDate = document.createElement("input");
   dueDate.type = "date";
   dueDate.id = "due-date";
+  
+  // to avoid formatting empty string
+  if (dueDate.value) {
+    dueDate.value = format(new Date(dueDate.value), 'dd/ MM/ yyyy');
+  }
+  
   addTodoForm.appendChild(dueDate);
 
   const addTodoButton = document.createElement("button");
@@ -315,7 +322,6 @@ export function addTableForm() {
   addTodoButton.classList.add("todo-add");
   addTodoButton.addEventListener("click", () => {
     if (!nameInput.reportValidity()) return;
-
     const newTodo = createTodo(
       nameInput.value,
       priorityInput.value,

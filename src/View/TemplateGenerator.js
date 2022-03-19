@@ -6,6 +6,7 @@ import plusIconAddress from "../Assets/plus-box.svg";
 import deleteIconAddress from "../Assets/trash-can-solid.svg";
 import { addProject, addTodo, deleteProject, deleteTodo } from "../Model/LocalStorage";
 import { createTodo } from "../Model/Todo";
+import { getTodayAndDue } from "../InitialState";
 
 export function generateHeader() {
   const body = document.querySelector("body");
@@ -103,10 +104,19 @@ export function generateSideBar() {
       // add eventListener
       const deleteIcon = new Image();
       deleteIcon.src = deleteIconAddress;
-      deleteIcon.addEventListener('click', () => {
+      deleteIcon.addEventListener('click', (event) => {
         deleteProject(temp.name);
+        
+        
         clearSideBar();
         generateSideBar();
+        clearTable();
+        generateTodoTable('Today');
+        // Because the delete icon is child of the project.
+        // The project also get clicked because of bubbling.
+        event.stopPropagation();
+        
+        // location.reload();
     });
       project.appendChild(deleteIcon);
 
@@ -114,6 +124,12 @@ export function generateSideBar() {
       project.addEventListener("click", () => {
         clearTable();
         generateTodoTable(project.textContent);
+
+        // can refractor
+        const { todayProject, dueProject } = getTodayAndDue();
+        localStorage.setItem('Today', JSON.stringify(todayProject));
+        localStorage.setItem('Due', JSON.stringify(dueProject));
+
         const button = document.querySelector('.add-todo-button');
         button.classList.remove('hide');
       });
@@ -188,11 +204,14 @@ export function generateTodoTable(projectName) {
   thead.appendChild(createTD("Date Created"));
   thead.appendChild(createTD("Due Date"));
 
+  // because of bubbling when deleting an item the project also get clicked
+  // resulting to parsing an item that doesn't exist anymore
+  // if (!localStorage.getItem(projectName)) return;
   const project = JSON.parse(localStorage.getItem(projectName));
 
   // catches not project object
   // research about instanceOf
-  if (!project.todo) return;
+  // if (!project.todo) return;
 
   for (let i = 0; i < project.todo.length; i++) {
     const row = document.createElement("tr");
@@ -406,6 +425,9 @@ function generateDefaultProject(projectObject) {
 
     // we use arrow function to prevent calling the function while setting it
   project.addEventListener("click", () => {
+      const { todayProject, dueProject } = getTodayAndDue();
+      localStorage.setItem('Today', JSON.stringify(todayProject));
+      localStorage.setItem('Due', JSON.stringify(dueProject));
       clearTable();
       generateTodoTable(project.textContent);
       const button = document.querySelector('.add-todo-button');

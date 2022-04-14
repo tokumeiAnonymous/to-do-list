@@ -107,8 +107,6 @@ export function generateSideBar() {
       deleteIcon.src = deleteIconAddress;
       deleteIcon.addEventListener('click', (event) => {
         deleteProject(temp.name);
-        
-        
         clearSideBar();
         generateSideBar();
         clearTable();
